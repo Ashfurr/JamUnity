@@ -3,15 +3,17 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - fish
+  - bomb
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - fish
   - Water
   - UI
-  - 
+  - bomb
   - 
   - 
   - 

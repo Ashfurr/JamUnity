@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4373526738539824353}
   - component: {fileID: 8344449906122033281}
   - component: {fileID: 2840499921461625441}
-  - component: {fileID: 1975998712637169072}
   - component: {fileID: -9066810976554506162}
   m_Layer: 0
   m_Name: Spawner
@@ -99,21 +98,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1975998712637169072
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 847619413992714619}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7c58305e3907a74295c451648f3f00f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timerRespawn: 0
-  fish: {fileID: 0}
-  bomb: {fileID: 0}
 --- !u!114 &-9066810976554506162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,5 +111,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerRespawn: 1.3
-  fish: {fileID: 1883747581096300331, guid: 42560048263ca9048bfb2ec9522e5d82, type: 3}
+  fish: {fileID: 1144059802217192048, guid: ac025b10ea6ba084583ce269e3462202, type: 3}
   bomb: {fileID: 4401942790975892537, guid: 240ff26a9503ee04fbd4cc00aa390733, type: 3}
