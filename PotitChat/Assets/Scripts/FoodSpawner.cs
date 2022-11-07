@@ -7,6 +7,8 @@ public class FoodSpawner : MonoBehaviour
     [SerializeField] float timerRespawn;
     [SerializeField] GameObject fish;
     [SerializeField] GameObject bomb;
+    [SerializeField] ParticleSystem fxSpawn;
+    [SerializeField] Animator mage;
     private bool CanSpawn = true;
     private GameObject liveObject = null;
     private Transform spawnLocate;
@@ -48,13 +50,17 @@ public class FoodSpawner : MonoBehaviour
         
         if ( random == 1)
         {
+            mage.SetTrigger("spawn");
             liveObject = Instantiate(fish, new Vector3(this.transform.position.x, this.transform.position.y + 0.5f, this.transform.position.z), Quaternion.identity);
+            Instantiate(fxSpawn,new Vector3(this.transform.position.x, this.transform.position.y + 0.5f, this.transform.position.z), Quaternion.identity);
             spawnLocate = liveObject.transform;
             CanSpawn = false;
         }
         else
         {
+            mage.SetTrigger("spawn");
             liveObject = Instantiate(bomb, new Vector3(this.transform.position.x, this.transform.position.y + 0.5f, this.transform.position.z), Quaternion.identity);
+            Instantiate(fxSpawn, new Vector3(this.transform.position.x, this.transform.position.y + 0.5f, this.transform.position.z),Quaternion.identity);
             CanSpawn = false;
             spawnLocate = liveObject.transform;
         }

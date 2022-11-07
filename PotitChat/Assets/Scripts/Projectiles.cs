@@ -5,6 +5,7 @@ using UnityEngine;
 public class Projectiles : MonoBehaviour
 {
     [SerializeField] float speed;
+    
     public bool alive=false;
     // Start is called before the first frame update
     void OnMouseOver()
