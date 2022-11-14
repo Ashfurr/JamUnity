@@ -24,7 +24,7 @@ public class Cat : MonoBehaviour
             gameManager.GetComponent<gameManager>().setScore(gameManager.GetComponent<gameManager>().getScore()+10);
             Instantiate(fxHitFish, new Vector3(collision.transform.position.x, collision.transform.position.y + 0.4f, collision.transform.position.z), Quaternion.identity);
             animator.SetTrigger("eat");
-            print("poisson");
+           
             
         }
         if (collision.gameObject.tag == "bomb")
@@ -33,7 +33,7 @@ public class Cat : MonoBehaviour
             gameManager.GetComponent<gameManager>().setScore(gameManager.GetComponent<gameManager>().getScore() - 10);
             Instantiate(fxHitBomb, collision.transform.position, Quaternion.identity);
             animator.SetTrigger("hit");
-            print("bomb");
+           
 
         }
     }

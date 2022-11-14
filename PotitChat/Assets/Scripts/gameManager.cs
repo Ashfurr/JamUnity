@@ -11,12 +11,14 @@ public class gameManager : MonoBehaviour
     
     [SerializeField] GameObject score;
     [SerializeField] GameObject timer;
+    //[SerializeField] GameObject fish;
 
     private int Score = 0;
     private float Time = 0;
 
     void Start()
     {
+       // Instantiate(fish, new Vector3(this.transform.position.x, this.transform.position.y + 0.5f, this.transform.position.z), Quaternion.identity);
 
     }
     public int getScore()
@@ -26,7 +28,7 @@ public class gameManager : MonoBehaviour
     public void setScore(int newScore)
     {
        Score = Math.Clamp(newScore,0,99999);
-       score.GetComponent<Text>().text = "Score : "+Score.ToString();
+       score.GetComponent<Text>().text = Score.ToString();
     }
     public float getTime()
     {
