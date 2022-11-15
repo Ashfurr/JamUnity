@@ -51,7 +51,7 @@ public class FoodSpawner : MonoBehaviour
         if ( random == 1)
         {
             
-            liveObject = Instantiate(fish, new Vector3(this.transform.position.x, this.transform.position.y + 0.5f, this.transform.position.z), Quaternion.identity);
+            liveObject = Instantiate(fish, new Vector3(this.transform.position.x, this.transform.position.y + 0.3f, this.transform.position.z), Quaternion.identity);
             Instantiate(fxSpawn,new Vector3(this.transform.position.x, this.transform.position.y + 0.5f, this.transform.position.z), Quaternion.identity);
             spawnLocate = liveObject.transform;
             CanSpawn = false;
@@ -59,7 +59,7 @@ public class FoodSpawner : MonoBehaviour
         else
         {
            
-            liveObject = Instantiate(bomb, new Vector3(this.transform.position.x, this.transform.position.y + 0.5f, this.transform.position.z), Quaternion.identity);
+            liveObject = Instantiate(bomb, new Vector3(this.transform.position.x, this.transform.position.y + 0.3f, this.transform.position.z), Quaternion.identity);
             Instantiate(fxSpawn, new Vector3(this.transform.position.x, this.transform.position.y + 0.5f, this.transform.position.z),Quaternion.identity);
             CanSpawn = false;
             spawnLocate = liveObject.transform;
