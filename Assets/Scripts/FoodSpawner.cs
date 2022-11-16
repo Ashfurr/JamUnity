@@ -23,6 +23,7 @@ public class FoodSpawner : MonoBehaviour
     {
       if (CanSpawn)
         {
+            print("la");
             StartCoroutine(timerSpawn());
         }
     }

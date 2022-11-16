@@ -28,13 +28,14 @@ public class Projectiles : MonoBehaviour
         //if you touch the screen
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && rb !=null)
             {
+            
                 //gettinf touch position and marking time when you touch the screen
                 touchTimeStart = Time.time;
                 startPos = Input.GetTouch(0).position;
 
             }
             //if you release the finger
-            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended&& rb != null)
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended&& rb != null)
             {
                 //marking time when you release it
                 touchTimeFinish = Time.time;
@@ -57,7 +58,7 @@ public class Projectiles : MonoBehaviour
                 rb =null;
                 alive = true;
                 Destroy(gameObject, 5);
-
+                print("oui");
             }
 
             }
@@ -70,7 +71,7 @@ public class Projectiles : MonoBehaviour
         {
             rb=GetComponent<Rigidbody>();
             
-            transform.localScale = tempscale + new Vector3(0.2f,0.2f,0.2f);
+            //transform.localScale = tempscale + new Vector3(0.2f,0.2f,0.2f);
      
         }
     }
