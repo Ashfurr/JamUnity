@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class FoodSpawner : MonoBehaviour
 {
-    [SerializeField] float timerRespawn;
+    
     [SerializeField] GameObject fish;
     [SerializeField] GameObject bomb;
     [SerializeField] ParticleSystem fxSpawn;
-    
+    [SerializeField] GameObject gameManager;
+    private gameManager gm;
     private bool CanSpawn = true;
     private GameObject liveObject = null;
     private Transform spawnLocate;
-
+    private void Awake()
+    {
+        gm=gameManager.GetComponent<gameManager>();
+    }
     private void Start()
     {
         
@@ -23,7 +27,7 @@ public class FoodSpawner : MonoBehaviour
     {
       if (CanSpawn)
         {
-            print("la");
+            
             StartCoroutine(timerSpawn());
         }
     }
@@ -31,7 +35,7 @@ public class FoodSpawner : MonoBehaviour
     {
        
         Spawn();
-        yield return new WaitForSeconds(timerRespawn);
+        yield return new WaitForSeconds(gm.getRespawnTimer());
         if(liveObject != null)
         {
             if (liveObject.GetComponent<Projectiles>().alive == false)

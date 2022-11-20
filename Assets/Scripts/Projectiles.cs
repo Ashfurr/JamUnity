@@ -53,9 +53,9 @@ public class Projectiles : MonoBehaviour
                 float dirYClamp = Mathf.Clamp(-direction.y * throwForceInXandY, 0, 250);
                 rb.isKinematic = false;
               
-                rb.AddForce(throwForceInZ / timeInterval, dirYClamp, direction.x * throwForceInXandY);
-
-                rb =null;
+                rb.AddForce(Vector2.Distance(startPos,endPos)*0.3f, dirYClamp, direction.x * throwForceInXandY);
+                //throwForceInZ / timeInterval
+                rb = null;
                 alive = true;
                 Destroy(gameObject, 5);
                 print("oui");
