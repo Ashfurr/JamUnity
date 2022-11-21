@@ -14,7 +14,8 @@ public class Cat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gm=gameManager.GetComponent<gameManager>();
+        Vibration.Init();
+        gm =gameManager.GetComponent<gameManager>();
         animator = GetComponent<Animator>();
         
     }
@@ -35,6 +36,7 @@ public class Cat : MonoBehaviour
             gm.setScore(gm.getScore() + gm.getBombPoint());
             Instantiate(fxHitBomb, collision.transform.position, Quaternion.identity);
             animator.SetTrigger("hit");
+            Vibration.VibratePeek();
            
 
         }

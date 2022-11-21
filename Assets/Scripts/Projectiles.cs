@@ -23,45 +23,50 @@ public class Projectiles : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
-       
-        //if you touch the screen
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && rb !=null)
+
+        var tapCount = Input.touchCount;
+        for (var i = 0; i < tapCount; i++)
+        {
+
+            var touch = Input.GetTouch(i);
+            print(Input.touchCount);
+            //if you touch the screen
+            if (Input.touchCount > 0 && touch.phase == TouchPhase.Began && rb != null)
             {
-            
+
                 //gettinf touch position and marking time when you touch the screen
                 touchTimeStart = Time.time;
-                startPos = Input.GetTouch(0).position;
+                startPos = touch.position;
 
             }
             //if you release the finger
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended&& rb != null)
+            if (Input.touchCount > 0 && touch.phase == TouchPhase.Ended && rb != null)
             {
                 //marking time when you release it
                 touchTimeFinish = Time.time;
                 //calculate swipe time interval
                 timeInterval = touchTimeFinish - touchTimeStart;
                 //getting release finge rposition
-                endPos = Input.GetTouch(0).position;
+                endPos = touch.position;
 
                 //calculate swpie direction in 2d Space
                 direction = startPos - endPos;
-                
+
                 //add force to fish rigidbody in 3d space depending on swipe time, direction adn throw forces 
                 if (direction.magnitude != 0)
                 {
-                float dirYClamp = Mathf.Clamp(-direction.y * throwForceInXandY, 0, 250);
-                rb.isKinematic = false;
-              
-                rb.AddForce(Vector2.Distance(startPos,endPos)*0.3f, dirYClamp, direction.x * throwForceInXandY);
-                //throwForceInZ / timeInterval
-                rb = null;
-                alive = true;
-                Destroy(gameObject, 5);
-                print("oui");
-            }
+                    float dirYClamp = Mathf.Clamp(-direction.y * throwForceInXandY, 0, 250);
+                    rb.isKinematic = false;
+
+                    rb.AddForce(Vector2.Distance(startPos, endPos) * 0.3f, dirYClamp, direction.x * throwForceInXandY);
+                    //throwForceInZ / timeInterval
+                    rb = null;
+                    alive = true;
+                    Destroy(gameObject, 5);
+                }
 
             }
+        }
         
     }
    
@@ -70,10 +75,9 @@ public class Projectiles : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             rb=GetComponent<Rigidbody>();
-            
-            //transform.localScale = tempscale + new Vector3(0.2f,0.2f,0.2f);
-     
+
         }
+
     }
  
 }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -4521119961515255648}
   - component: {fileID: 3563891400922362409}
   - component: {fileID: 7488014496371509409}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Clownfish
   m_TagString: fish
   m_Icon: {fileID: 0}

@@ -28,6 +28,8 @@ public class gameManager : MonoBehaviour
     private int Score = 0;
     private float TimeTop = 0;
     private bool IsSpeedUp = false;
+    private HighScoreTable HighScoreTable;
+    private string playerName = "null";
     private void Awake()
     {
         QualitySettings.vSyncCount = 0;
@@ -79,7 +81,7 @@ public class gameManager : MonoBehaviour
         FishPoint = FishPoint * 2;
         respawnTimer = 1;
         tigerSpeed.SetFloat("speed", 0.5f);
-        print(tigerSpeed.parameters);
+       
 
     }
     void End()
@@ -88,11 +90,15 @@ public class gameManager : MonoBehaviour
         Time.timeScale = 0;
         endUI.SetActive(true);
         endText.text = "Your Score\n\n" + Score.ToString();
+
+        
        
     }
     public  void Restart()
     {
-        SceneManager.LoadScene("game");
+        
+        SceneManager.LoadScene("Menu");
+        
     }
 
     // Update is called once per frame
