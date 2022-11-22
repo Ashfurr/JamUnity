@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -7,30 +8,24 @@ public class Projectiles : MonoBehaviour
 {
     [SerializeField] float throwForceInXandY = 1f; //to control throw force in x and y direction 
     [SerializeField] float throwForceInZ = 5f; //to control throw force in z direction 
-    Vector2[] startPos, endPos;
-    float touchTimeStart, touchTimeFinish;
-
-    public List<touchLocation> touches = new List<touchLocation>();
 
 
-    public bool alive = false;
-    private Vector3 tempscale;
+    Vector2[] startPos = new Vector2[] {new Vector2(0,0),new Vector2(0,0), new Vector2(0, 0) };
+    Vector2[] endPos = new Vector2[] {new Vector2(0,0),new Vector2(0,0), new Vector2(0, 0) };
+    bool[] isHit = new bool[] {false,false,false };
+    Rigidbody[] proj = new Rigidbody[] {null,null,null};
 
     private void Start()
     {
-        tempscale = transform.localScale;
-
+ 
     }
-
-
-    // Update is called once per frame
     void Update()
     {
+        //print("tabdehit= " + isHit[0].ToString() + isHit[1].ToString() + isHit[2].ToString()+ "nombres de doigt= "+ Input.touchCount);
         for (int i = 0; i < Input.touchCount; i++)
         {
+            print(i);
             Touch t = Input.GetTouch(i);
-
-
             if (Input.touchCount > 0 && t.phase == TouchPhase.Began)
             {
 
@@ -41,57 +36,45 @@ public class Projectiles : MonoBehaviour
 
                     if (hit.collider.tag == "fish" || hit.collider.tag == "bomb")
                     {
-                        Rigidbody rb = hit.rigidbody;
-                        rb.name = "Touch" + t.fingerId;
-                        touches.Add(new touchLocation(t.fingerId, rb));
+                        if (hit.rigidbody.isKinematic)
+                        {
+                            proj[i] = hit.rigidbody;  
+                            startPos[i] = t.position;
+                            isHit[i] = true;
 
-
-
+                        }
                     };
-                }
-
-                //gettinf touch position and marking time when you touch the screen
-               
-                startPos[i] = t.position;
-
+                }  
             }
             //if you release the finger
-            if (Input.touchCount > 0 && t.phase == TouchPhase.Ended)
+            if (Input.touchCount > 0 && t.phase == TouchPhase.Ended && isHit[i])
             {
-
-                //getting release finge rposition
+                
+                isHit[i] = false;
                 endPos[i] = t.position;
-
-                //calculate swpie direction in 2d Space
-                Vector2 direction = startPos[i] - endPos[i];
-                Launch(direction, startPos[i], endPos[i], t);
-
+                
+                    Launch(startPos[i], endPos[i], proj[i]);
                 
             }
 
         }
+        if (Input.touchCount == 0)
+        {
+            for (int j = 0; j < isHit.Count(); j++)
+            {
+                isHit[j] = false;
+            }
+        }
 
     }
-
-
-
-    void Launch(Vector2 direction, Vector2 startPos, Vector2 endPos, Touch t)
+    void Launch(Vector2 startPos, Vector2 endPos,Rigidbody proj)
     {
+        Vector2 direction = startPos - endPos;
         if (direction.magnitude != 0)
         {
-            touchLocation thisTouch = touches.Find(touchLocation => touchLocation.touchId == t.fingerId);
-            Rigidbody rb = thisTouch.projectil;
-            if(rb == null)
-            {
-                touches.Clear();
-            }
-
             float dirYClamp = Mathf.Clamp(-direction.y * throwForceInXandY, 0, 250);
-            rb.isKinematic = false;
-
-            rb.AddForce(Vector2.Distance(startPos, endPos) * 0.3f, dirYClamp, direction.x * throwForceInXandY);
-
-            touches.RemoveAt(touches.IndexOf(thisTouch));
+            proj.isKinematic = false;
+            proj.AddForce(Vector2.Distance(startPos, endPos) * 0.3f, dirYClamp, direction.x * throwForceInXandY);
         }
     }
 }

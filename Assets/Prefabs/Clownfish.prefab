@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -4521119961515255648}
   - component: {fileID: 3563891400922362409}
   - component: {fileID: 7488014496371509409}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Clownfish
   m_TagString: fish
   m_Icon: {fileID: 0}
@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 1889263632455007964}
   - component: {fileID: 2163847348836178300}
   - component: {fileID: 2699133739727902777}
-  m_Layer: 2
+  m_Layer: 3
   m_Name: e
   m_TagString: fish
   m_Icon: {fileID: 0}
@@ -339,7 +339,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1521539475015914560, guid: b24cda529343db345ad07ea482d65f45, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1521539475015914562, guid: b24cda529343db345ad07ea482d65f45, type: 3}
       propertyPath: m_Layer
@@ -375,7 +375,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1521539475015914578, guid: b24cda529343db345ad07ea482d65f45, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1521539475015914578, guid: b24cda529343db345ad07ea482d65f45, type: 3}
       propertyPath: m_TagString

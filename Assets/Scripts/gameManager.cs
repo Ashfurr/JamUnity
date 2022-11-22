@@ -22,7 +22,6 @@ public class gameManager : MonoBehaviour
     [SerializeField] int BombPoint = -50;
     [SerializeField] int FishPoint = 20;
     [SerializeField] float respawnTimer = 2f;
-    [SerializeField] Animator tigerSpeed;
     [SerializeField] InputField playerName;
 
 
@@ -34,7 +33,7 @@ public class gameManager : MonoBehaviour
     private void Awake()
     {
         QualitySettings.vSyncCount = 0;
-        //Application.targetFrameRate = 60;
+        Application.targetFrameRate = 60;
         
     }
     void Start()
@@ -81,12 +80,12 @@ public class gameManager : MonoBehaviour
         IsSpeedUp = true;
         FishPoint = FishPoint * 2;
         respawnTimer = 1;
-        tigerSpeed.SetFloat("speed", 0.5f);
+        
     }
     void End()
     {      
         Time.timeScale = 0;
-        print("stop");
+        
         endUI.SetActive(true);
         endText.text = "Your Score\n\n" + Score.ToString(); 
     }
