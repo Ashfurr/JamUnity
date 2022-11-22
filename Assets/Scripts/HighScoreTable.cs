@@ -10,16 +10,27 @@ public class HighScoreTable : MonoBehaviour
     private List<Transform> highscoreEntryTransformList;
     private void Awake()
     {
-        
-        entryContainer = transform.Find("HighScoreContainer");
+        new Highscores();entryContainer = transform.Find("HighScoreContainer");
         entryTemplate = entryContainer.Find("HighScoreEntry");
         
         entryTemplate.gameObject.SetActive(false);
         
         string jsonString = PlayerPrefs.GetString("highscoreTable");
         Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
+
+        if (highscores == null)
+        {
+            // There's no stored table, initialize
+            Debug.Log("Initializing table with default values...");
+            AddHighscoreEntry(0, "AAA");
+            // Reload
+            jsonString = PlayerPrefs.GetString("highscoreTable");
+            highscores = JsonUtility.FromJson<Highscores>(jsonString);
+        }
         
-        for(int i = 0; i < highscores.highscoreEntriesList.Count; i++)
+
+
+        for (int i = 0; i < highscores.highscoreEntriesList.Count; i++)
         {
             for(int j = i + 1; j < highscores.highscoreEntriesList.Count; j++)
             {
@@ -31,7 +42,11 @@ public class HighScoreTable : MonoBehaviour
                 }
             }
         }
-        highscoreEntryTransformList = new List<Transform>();
+        if (highscores.highscoreEntriesList.Count > 10)
+        {
+            highscores.highscoreEntriesList.RemoveAt(highscores.highscoreEntriesList.Count - 1);
+        }
+            highscoreEntryTransformList = new List<Transform>();
         foreach(HighscoreEntry highscoreEntry in highscores.highscoreEntriesList)
         {
             CreateHighscoreEntryTransform(highscoreEntry, entryContainer, highscoreEntryTransformList);
@@ -73,12 +88,23 @@ public class HighScoreTable : MonoBehaviour
 
     public static void AddHighscoreEntry(int score, string name)
     {//create highscore entry
+
         HighscoreEntry highscoreEntry = new HighscoreEntry { score = score, name=name};
 
         //load saved highscore
         string jsonString = PlayerPrefs.GetString("highscoreTable");
         Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
+
+        if (highscores == null)
+        {
+            // There's no stored table, initialize
+            highscores = new Highscores()
+            {
+                highscoreEntriesList = new List<HighscoreEntry>()
+            };
+        }
         //add new entry
+
         highscores.highscoreEntriesList.Add(highscoreEntry);
         //savced new entry
         string json = JsonUtility.ToJson(highscores);
@@ -87,7 +113,8 @@ public class HighScoreTable : MonoBehaviour
     }
     private class Highscores
     {
-        public List<HighscoreEntry> highscoreEntriesList;        
+        public List<HighscoreEntry> highscoreEntriesList;
+        
     }
     [System.Serializable]
     private class HighscoreEntry

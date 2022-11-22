@@ -23,13 +23,14 @@ public class gameManager : MonoBehaviour
     [SerializeField] int FishPoint = 20;
     [SerializeField] float respawnTimer = 2f;
     [SerializeField] Animator tigerSpeed;
+    [SerializeField] InputField playerName;
 
 
     private int Score = 0;
     private float TimeTop = 0;
     private bool IsSpeedUp = false;
     private HighScoreTable HighScoreTable;
-    private string playerName = "null";
+    
     private void Awake()
     {
         QualitySettings.vSyncCount = 0;
@@ -81,24 +82,19 @@ public class gameManager : MonoBehaviour
         FishPoint = FishPoint * 2;
         respawnTimer = 1;
         tigerSpeed.SetFloat("speed", 0.5f);
-       
-
     }
     void End()
-    {
-        
+    {      
         Time.timeScale = 0;
+        print("stop");
         endUI.SetActive(true);
-        endText.text = "Your Score\n\n" + Score.ToString();
-
-        
-       
+        endText.text = "Your Score\n\n" + Score.ToString(); 
     }
     public  void Restart()
     {
-        
-        SceneManager.LoadScene("Menu");
-        
+        ;
+        HighScoreTable.AddHighscoreEntry(Score, playerName.text);
+        SceneManager.LoadScene("Menu");  
     }
 
     // Update is called once per frame
