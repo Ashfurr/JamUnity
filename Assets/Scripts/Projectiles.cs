@@ -24,7 +24,7 @@ public class Projectiles : MonoBehaviour
         //print("tabdehit= " + isHit[0].ToString() + isHit[1].ToString() + isHit[2].ToString()+ "nombres de doigt= "+ Input.touchCount);
         for (int i = 0; i < Input.touchCount; i++)
         {
-            print(i);
+            
             Touch t = Input.GetTouch(i);
             if (Input.touchCount > 0 && t.phase == TouchPhase.Began)
             {
@@ -36,35 +36,30 @@ public class Projectiles : MonoBehaviour
 
                     if (hit.collider.tag == "fish" || hit.collider.tag == "bomb")
                     {
-                        if (hit.rigidbody.isKinematic)
+                        hit.rigidbody.name = hit.collider.gameObject.name;
+
+                        if (hit.rigidbody.isKinematic && checkname(hit.collider.gameObject.name))
                         {
-                            proj[i] = hit.rigidbody;  
+                            
+                            proj[i] = hit.rigidbody;
+                            
                             startPos[i] = t.position;
-                            isHit[i] = true;
 
                         }
                     };
                 }  
             }
             //if you release the finger
-            if (Input.touchCount > 0 && t.phase == TouchPhase.Ended && isHit[i])
-            {
-                
-                isHit[i] = false;
+            if (Input.touchCount > 0 && t.phase == TouchPhase.Ended && proj[i]!=null )
+            {  
                 endPos[i] = t.position;
-                
-                    Launch(startPos[i], endPos[i], proj[i]);
+                Launch(startPos[i], endPos[i], proj[i]);
+                print(proj[i]);
                 
             }
 
         }
-        if (Input.touchCount == 0)
-        {
-            for (int j = 0; j < isHit.Count(); j++)
-            {
-                isHit[j] = false;
-            }
-        }
+       
 
     }
     void Launch(Vector2 startPos, Vector2 endPos,Rigidbody proj)
@@ -76,6 +71,21 @@ public class Projectiles : MonoBehaviour
             proj.isKinematic = false;
             proj.AddForce(Vector2.Distance(startPos, endPos) * 0.3f, dirYClamp, direction.x * throwForceInXandY);
         }
+    }
+    bool checkname(string objname)
+    {
+        for(int i = 0; i < proj.Length; i++)
+        {
+            if (proj[i] != null)
+            {
+                if (proj[i].name == objname)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+
     }
 }
    /* void OnMouseOver()

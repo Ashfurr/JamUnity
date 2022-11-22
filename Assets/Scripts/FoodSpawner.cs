@@ -12,6 +12,7 @@ public class FoodSpawner : MonoBehaviour
     private gameManager gm;
     private bool CanSpawn = true;
     private GameObject liveObject = null;
+    private int compteur = 0;
    
     private void Awake()
     {
@@ -56,19 +57,19 @@ public class FoodSpawner : MonoBehaviour
         
         if ( random == 1)
         {
-            
+            compteur++;
             liveObject = Instantiate(fish, new Vector3(this.transform.position.x, this.transform.position.y + 0.3f, this.transform.position.z), Quaternion.identity);
             Instantiate(fxSpawn,new Vector3(this.transform.position.x, this.transform.position.y + 0.3f, this.transform.position.z), Quaternion.identity);
-           
+            liveObject.gameObject.name = gameObject.name + compteur.ToString();
             CanSpawn = false;
         }
         else
         {
-           
+            compteur++;
             liveObject = Instantiate(bomb, new Vector3(this.transform.position.x, this.transform.position.y + 0.3f, this.transform.position.z), Quaternion.identity);
             Instantiate(fxSpawn, new Vector3(this.transform.position.x, this.transform.position.y + 0.3f, this.transform.position.z),Quaternion.identity);
             CanSpawn = false;
-            
+            liveObject.gameObject.name = gameObject.name + compteur.ToString();
         }
     }
 }
