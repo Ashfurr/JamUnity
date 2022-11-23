@@ -14,37 +14,38 @@ public class FoodSpawner : MonoBehaviour
     private GameObject liveObject = null;
     private GameObject liveObjecttmp = null;
     private int compteur = 0;
-   
+    private  bool tuto = false;
+    
     private void Awake()
     {
         gm=gameManager.GetComponent<gameManager>();
     }
     private void Start()
     {
-        
+        liveObject = Instantiate(fish, new Vector3(this.transform.position.x, this.transform.position.y + 0.3f, this.transform.position.z), Quaternion.identity);
+        StartCoroutine(checkTuto());
         StartCoroutine(timerSpawn());
        
     }
-    private void Update()
-    {
-      if (CanSpawn)
-        {
-            
-            StartCoroutine(timerSpawn());
-        }
-    }
+    
     IEnumerator timerSpawn ()
     {
-        Spawn();
-        yield return new WaitForSeconds(gm.getRespawnTimer());
-        if(liveObject != null && liveObject.GetComponent<Rigidbody>().velocity==new Vector3(0,0,0))
-        {
-            if(liveObject.name == liveObjecttmp.name)
+        while (true) {
+            if (CanSpawn&&tuto)
             {
-                Destroy(liveObject);
+                
+                Spawn();
+                yield return new WaitForSeconds(gm.getRespawnTimer());
+                if (liveObject != null && liveObject.GetComponent<Rigidbody>().velocity == new Vector3(0, 0, 0))
+                {
+                    if (liveObject.name == liveObjecttmp.name)
+                    {
+                        Destroy(liveObject);
+                    }
+                }
             }
-                
-                
+            CanSpawn = true;
+            yield return new WaitForSeconds(0.1f);
         }
         
         /*if(liveObject != null)
@@ -52,9 +53,26 @@ public class FoodSpawner : MonoBehaviour
             Destroy(liveObject,7);
         }*/
 
+    }
+    IEnumerator checkTuto()
+    {
+        bool run = true;
+        while (run)
+        {
+            if (gm.intro)
+            {
+                if(liveObject  != null)
+                {
+                    Destroy(liveObject, 4f);
+                }
+                
+                tuto = true;
+                run = false;
+            }
+            yield return new WaitForSeconds(0.5f);
+        }
+        
 
-        CanSpawn = true;
-  
     }
     void Spawn()
     {

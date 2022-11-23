@@ -23,24 +23,32 @@ public class gameManager : MonoBehaviour
     [SerializeField] int FishPoint = 20;
     [SerializeField] float respawnTimer = 2f;
     [SerializeField] InputField playerName;
+    [SerializeField] RectTransform doigt;
+    [SerializeField] RectTransform text;
+    [SerializeField] GameObject tutoui;
+   
+    FoodSpawner spawner;
+
+
 
 
     private int Score = 0;
     private float TimeTop = 0;
     private bool IsSpeedUp = false;
     private HighScoreTable HighScoreTable;
+    public bool intro=false;
     
     private void Awake()
     {
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
-        
     }
     void Start()
     {
         Time.timeScale = 1;
         blur.DOFade(1, 0.5f).SetLoops(-1, LoopType.Yoyo).SetId("blurEffect");
         rectTransfo.DOScale(1.1f,0.5f).SetLoops(-1,LoopType.Yoyo).SetId("timeBump");
+        StartCoroutine(tuto());
         
     }
     public float getRespawnTimer()
@@ -99,22 +107,42 @@ public class gameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (timeRemaining > 0)
+        if (intro)
         {
-            timeRemaining -= Time.deltaTime;
-            setTime(timeRemaining);
-            if (timeRemaining < 10 && !IsSpeedUp)
-            {         
+            if (timeRemaining > 0)
+            {
+                timeRemaining -= Time.deltaTime;
+                setTime(timeRemaining);
+                if (timeRemaining < 10 && !IsSpeedUp)
+                {
                     SpeedUp();
+                }
             }
-        }
-        
-        else
-        {
-            End();
-            timeRemaining = 0;
-        }
-        
 
+            else
+            {
+                End();
+                timeRemaining = 0;
+            }
+
+        }
     }
+    IEnumerator tuto()
+    {
+        yield return new WaitForSeconds(0.5f);
+        doigt.DOMoveY(700, 1.5f).SetLoops(-1, LoopType.Restart).SetId("move");
+        text.DOScale(1.1f, 0.5f).SetLoops(-1, LoopType.Yoyo).SetId("text");
+
+
+        DOTween.Play("move");
+        DOTween.Play("text");
+        
+       
+    }
+    public void interact()
+    {
+        intro = true;
+        tutoui.SetActive(false);
+    }
+    
 }
