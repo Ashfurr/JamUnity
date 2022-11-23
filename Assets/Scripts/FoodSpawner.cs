@@ -12,6 +12,7 @@ public class FoodSpawner : MonoBehaviour
     private gameManager gm;
     private bool CanSpawn = true;
     private GameObject liveObject = null;
+    private GameObject liveObjecttmp = null;
     private int compteur = 0;
    
     private void Awake()
@@ -34,19 +35,24 @@ public class FoodSpawner : MonoBehaviour
     }
     IEnumerator timerSpawn ()
     {
-       
         Spawn();
         yield return new WaitForSeconds(gm.getRespawnTimer());
         if(liveObject != null && liveObject.GetComponent<Rigidbody>().velocity==new Vector3(0,0,0))
         {
+            if(liveObject.name == liveObjecttmp.name)
+            {
                 Destroy(liveObject);
+            }
+                
+                
         }
+        
         /*if(liveObject != null)
         {
             Destroy(liveObject,7);
         }*/
-        
-        
+
+
         CanSpawn = true;
   
     }
@@ -61,6 +67,8 @@ public class FoodSpawner : MonoBehaviour
             liveObject = Instantiate(fish, new Vector3(this.transform.position.x, this.transform.position.y + 0.3f, this.transform.position.z), Quaternion.identity);
             Instantiate(fxSpawn,new Vector3(this.transform.position.x, this.transform.position.y + 0.3f, this.transform.position.z), Quaternion.identity);
             liveObject.gameObject.name = gameObject.name + compteur.ToString();
+            liveObjecttmp=liveObject;
+
             CanSpawn = false;
         }
         else
@@ -70,6 +78,7 @@ public class FoodSpawner : MonoBehaviour
             Instantiate(fxSpawn, new Vector3(this.transform.position.x, this.transform.position.y + 0.3f, this.transform.position.z),Quaternion.identity);
             CanSpawn = false;
             liveObject.gameObject.name = gameObject.name + compteur.ToString();
+            liveObjecttmp = liveObject;
         }
     }
 }
