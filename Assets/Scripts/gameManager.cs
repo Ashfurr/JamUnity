@@ -26,6 +26,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] RectTransform doigt;
     [SerializeField] RectTransform text;
     [SerializeField] GameObject tutoui;
+    [SerializeField] GameObject speedUpUi;
    
     FoodSpawner spawner;
 
@@ -88,6 +89,7 @@ public class gameManager : MonoBehaviour
         IsSpeedUp = true;
         FishPoint = FishPoint * 2;
         respawnTimer = 1;
+        StartCoroutine(showSpeedUp());
         
     }
     void End()
@@ -143,6 +145,12 @@ public class gameManager : MonoBehaviour
     {
         intro = true;
         tutoui.SetActive(false);
+    }
+    IEnumerator showSpeedUp()
+    {
+        speedUpUi.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        speedUpUi.SetActive(false);
     }
     
 }
